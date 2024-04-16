@@ -39,3 +39,17 @@ interface Teacher {
   };
 
   console.log(printTeacher("John", "Doe"));
+
+  interface StudentConstructor {
+    new (firstName: string, lastName: string): StudentClassInterface;
+  }
+
+  interface StudentClassInterface {
+    workOnHomework(): string;
+    displayName(): string;
+  }
+
+  interface StudentClassInterface {
+    workOnHomework(): string;
+    displayName(): string;
+  }
