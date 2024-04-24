@@ -1,21 +1,24 @@
-{ "homepage": "http://yunusemretokyay1.github.io/holbertonschool-web_react",
-  "name": "dashboard",
+{
+  "name": "dashboards",
   "version": "0.1.0",
   "private": true,
+  "homepage": "http://yunusemretokyay1.github.io/holbertonschool-web_react",
   "dependencies": {
-    "react": "^16.14.0",
-    "predeploy":"npm run build",
-    "deploy": "gh-pages -d build",
-    "react-dom": "^16.14.0",
-    "react-scripts": "5.0.1",
-    "web-vitals": "^2.1.4"
+    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/react": "^11.1.0",
+    "@testing-library/user-event": "^12.1.10",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-scripts": "^3.4.4",
+    "web-vitals": "^1.0.1"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
-    "eject": "react-scripts eject"
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
