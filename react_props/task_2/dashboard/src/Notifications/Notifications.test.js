@@ -7,15 +7,13 @@ describe("<Notifications />", () => {
     const wrapper = shallow(<Notifications />);
     expect(wrapper.exists()).toEqual(true);
   });
-  it("Notifications renders three list items", () => {
+  it("Notifications renders Notification Item and first item has correct html", () => {
     const wrapper = shallow(<Notifications />);
     wrapper.update();
-     expect(wrapper.find("li")).toHaveLength(3);
-   });
-   it("Notifications renders the text Here is the list of notifications", () => {
-     const text = "Here is the list of notifications";
-     const wrapper = shallow(<Notifications />);
-    wrapper.update();
-    expect(wrapper.find(".Notifications p").text()).toEqual(text);
-   });
+    const listItems = wrapper.find("NotificationItem");
+    expect(listItems).toBeDefined();
+    expect(listItems.first().html()).toEqual(
+      '<li data-notification-type="default">New course available</li>'
+    );
+  });
 });
