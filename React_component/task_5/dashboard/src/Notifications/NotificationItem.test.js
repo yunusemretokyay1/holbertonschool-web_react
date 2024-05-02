@@ -34,7 +34,6 @@ describe("<Notifications />", () => {
       <NotificationItem type="default" value="test" id={id} />
     );
 
-    // const instance = wrapper.instance();
     const instance = wrapper;
 
     instance.markAsRead = jest.fn();
