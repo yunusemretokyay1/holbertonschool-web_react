@@ -43,7 +43,7 @@ describe('Test Footer.js', () => {
   it('test to verify that the link is displayed when the user is logged in within the context', (done) => {
     value.user.isLoggedIn = true;
     const wrapper = shallow(<AppContext.Provider value={value}><Footer /></AppContext.Provider>);
-    expect(wrapper.find(Footer).html()).toEqual('<footer><p>Copyright 2021 - Holberton School</p><p id="conctacUs"><a>Contact us</a></p></footer>');
+    expect(wrapper.find(Footer).html()).toEqual('<footer><p>Copyright 2024 - Holberton School</p><p id="conctacUs"><a>Contact us</a></p></footer>');
     done();
   });
 });
