@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-start',
         fontSize: '1.2rem',
         color: '#e11d3f',
-        borderBottom: '3px solid #e1354b',
+        bordeBottom: 'solid #e11d3f'
     },
       
     appHeaderImg: {
