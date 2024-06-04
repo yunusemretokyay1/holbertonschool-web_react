@@ -1,6 +1,7 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import App from "./App";
+import { App, mapStateToProps } from "./App";
+import { fromJS } from 'immutable';
 
 describe('Tests the App component', () => {
     let wrapper;
@@ -97,5 +98,14 @@ describe('Tests the App component when isLoggedIn is true', () => {
         expect(wrapper.state().listNotifications.length).toEqual(3);
         wrapper.instance().markNotificationAsRead(1);
         expect(wrapper.state().listNotifications.length).toEqual(2);
+    });
+});
+
+describe('Tests suite to test the mapStateToProps function', () => {
+    it('Tests that the function returns the right object when passing a specific state', () => {
+        let state = fromJS({
+            isUserLoggedIn: true
+        });
+        expect(mapStateToProps(state)).toEqual({ isLoggedIn: true });
     });
 });

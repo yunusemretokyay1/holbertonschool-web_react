@@ -1,23 +1,17 @@
 import React from 'react';
-import { createRoot } from 'react-dom/client';
-import { configureStore } from '@reduxjs/toolkit';
+import ReactDOM from 'react-dom';
+import { createStore } from 'redux';
 import { Provider } from 'react-redux';
-import { uiReducer } from './reducers/uiReducer'; // Named import
+import { uiReducer } from './reducers/uiReducer';
 import App from './App/App';
 
-// Redux store oluşturma
-const store = configureStore({
-  reducer: {
-    ui: uiReducer,
-  },
-});
+const store = createStore(uiReducer);
 
-const rootElement = document.getElementById("root");
-const root = createRoot(rootElement);
-root.render(
+const rootId = document.getElementById("root");
+ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <App />
     </Provider>
-  </React.StrictMode>
+  </React.StrictMode>, rootId
 );
