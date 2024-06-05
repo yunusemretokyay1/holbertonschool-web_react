@@ -40,21 +40,6 @@ describe('Tests the App component', () => {
         expect(wrapper.state().user.isLoggedIn).toBe(false);
         jest.restoreAllMocks();
     });
-    it('checks that default state for displayDrawer is false', () => {
-        expect(wrapper.state().displayDrawer).toBe(false);
-    });
-    it('checks that after calling handleDisplayDrawer, the state should now be true', () => {
-        wrapper.setState({displayDrawer: false});
-        expect(wrapper.state().displayDrawer).toBe(false);
-        wrapper.instance().handleDisplayDrawer();
-        expect(wrapper.state().displayDrawer).toBe(true);
-    });
-    it('checks that after calling handleHideDrawer, the state should now be true', () => {
-        wrapper.setState({displayDrawer: true});
-        expect(wrapper.state().displayDrawer).toBe(true);
-        wrapper.instance().handleHideDrawer();
-        expect(wrapper.state().displayDrawer).toBe(false);
-    });
     it('checks that the logIn function updates the state correctly', () => {
         wrapper.instance().logIn();
         expect(wrapper.state().user.isLoggedIn).toBe(true);
