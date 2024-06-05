@@ -1,23 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
-import { configureStore } from '@reduxjs/toolkit';
-import rootReducer from './reducers';
-import thunk from 'redux-thunk';
-import App from './App';
+import { uiReducer } from './reducers/uiReducer';
+import thunk from 'redux-thunk'
+import App from './App/App';
 
-// Mağazayı yapılandır
-const store = configureStore({
-  reducer: rootReducer,
-  middleware: [thunk]
-});
+const store = createStore(uiReducer, applyMiddleware(thunk));
 
-const rootElement = document.getElementById('root');
+const rootId = document.getElementById("root");
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <App />
     </Provider>
-  </React.StrictMode>,
-  rootElement
+  </React.StrictMode>, rootId
 );
