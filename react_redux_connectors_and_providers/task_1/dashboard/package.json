@@ -1,0 +1,55 @@
+{
+  "name": "dashboard",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack-dev-server --mode development --config config/webpack.config.js",
+    "build": "webpack --config config/webpack.config.js",
+    "test": "jest --maxWorkers 1",
+    "test-watch": "jest --watch"
+  },
+  "dependencies": {
+    "aphrodite": "^2.4.0",
+    "immutable": "^4.3.0",
+    "normalizr": "^3.6.2",
+    "prop-types": "^15.8.1",
+    "react": "^16.14.0",
+    "react-dom": "^16.14.0",
+    "react-redux": "^8.1.1",
+    "redux": "^4.2.1",
+    "redux-thunk": "^2.4.2"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.21.8",
+    "@babel/preset-env": "^7.21.5",
+    "@babel/preset-react": "^7.18.6",
+    "babel-loader": "^9.1.2",
+    "css-loader": "^6.7.3",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.7",
+    "fetch-mock": "^9.11.0",
+    "file-loader": "^6.2.0",
+    "image-webpack-loader": "^8.1.0",
+    "jest": "^27.5.1",
+    "node-fetch": "^2.6.11",
+    "redux-mock-store": "^1.5.4",
+    "style-loader": "^3.3.2",
+    "webpack": "^5.82.0",
+    "webpack-cli": "^5.1.1",
+    "webpack-dev-server": "^4.15.0"
+  },
+  "jest": {
+    "moduleNameMapper": {
+      "\\.(css|scss)$": "<rootDir>/__mocks__/fileMock.js",
+      "\\.(png|jpg)$": "<rootDir>/__mocks__/fileMock.js"
+    },
+    "setupFiles": [
+      "<rootDir>/config/setupTests.js"
+    ],
+    "testEnvironment": "jsdom"
+  }
+}
