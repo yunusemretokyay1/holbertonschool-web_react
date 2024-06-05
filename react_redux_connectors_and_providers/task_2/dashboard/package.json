@@ -10,15 +10,16 @@
     "test-watch": "jest --watch"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^2.2.5",
     "aphrodite": "^2.4.0",
-    "immutable": "^4.3.0",
+    "immutable": "^4.3.6",
     "normalizr": "^3.6.2",
     "prop-types": "^15.8.1",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
     "react-redux": "^8.1.1",
-    "redux": "^4.2.1",
-    "redux-thunk": "^2.4.2"
+    "redux": "^5.0.1",
+    "redux-thunk": "^3.1.0"
   },
   "keywords": [],
   "author": "",
@@ -39,7 +40,7 @@
     "redux-mock-store": "^1.5.4",
     "style-loader": "^3.3.2",
     "webpack": "^5.82.0",
-    "webpack-cli": "^5.1.1",
+    "webpack-cli": "^5.1.4",
     "webpack-dev-server": "^4.15.0"
   },
   "jest": {

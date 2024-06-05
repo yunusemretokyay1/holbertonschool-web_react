@@ -1,5 +1,5 @@
 import { selectCourse } from "../actions/courseActionCreators";
-import { displayNotificationDrawer } from "../actions/uiActionCreators";
+import { displayNotificationDrawer, login } from "../actions/uiActionCreators";
 import { appInitialState, uiReducer } from "./uiReducer";
 
 describe('Test suite for uiReducer', () => {
@@ -16,6 +16,17 @@ describe('Test suite for uiReducer', () => {
             isNotificationDrawerVisible: true
         };
         const action = displayNotificationDrawer();
+        expect(uiReducer(undefined, action).toJS()).toEqual(expectedState);
+    });
+    it('Tests uiReducer when the action LOGIN is passed', () => {
+        const expectedState = {
+            ...appInitialState,
+            user: {
+                email: 'hello@world.com',
+                password: 'Test123!'
+            }
+        };
+        const action = login('hello@world.com', 'Test123!');
         expect(uiReducer(undefined, action).toJS()).toEqual(expectedState);
     });
 });
