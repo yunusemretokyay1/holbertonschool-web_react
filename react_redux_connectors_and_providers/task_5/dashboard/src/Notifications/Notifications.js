@@ -2,12 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { StyleSheet, css } from 'aphrodite';
 import closeIcon from '../assets/close-icon.png';
-import NotificationItemShape from './NotificationItemShape';
 import NotificationItem from './NotificationItem';
+import { fetchNotifications } from '../actions/notificationActionCreators';
+import { connect } from 'react-redux';
 
 class Notifications extends React.PureComponent {
   constructor(props) {
     super(props);
+  }
+
+  componentDidMount() {
+    this.props.fetchNotifications();
   }
 
   render() {
@@ -23,8 +28,8 @@ class Notifications extends React.PureComponent {
   
     if (this.props.listNotifications.length === 0) content = <p>No new notification for now</p>;
     else {
-      content = this.props.listNotifications.map((notification) =>
-      <NotificationItem key={notification.id} type={notification.type} value={notification.value} html={notification.html} markAsRead={this.props.markNotificationAsRead} id={notification.id}/>);
+      content = Object.values(this.props.listNotifications).map((notif) =>
+      <NotificationItem key={notif.guid} type={notif.type} value={notif.value} html={notif.html} markAsRead={this.props.markNotificationAsRead} id={notif.guid}/>);
     }
     const { handleDisplayDrawer, handleHideDrawer } = this.props;
     return (
@@ -48,7 +53,7 @@ class Notifications extends React.PureComponent {
 
 Notifications.propTypes = {
   displayDrawer: PropTypes.bool,
-  listNotifications: PropTypes.arrayOf(NotificationItemShape),
+  listNotifications: PropTypes.object,
   handleDisplayDrawer: PropTypes.func,
   handleHideDrawer: PropTypes.func,
   markNotificationAsRead: PropTypes.func
@@ -56,11 +61,26 @@ Notifications.propTypes = {
 
 Notifications.defaultProps = {
   displayDrawer: false,
-  listNotifications: [],
+  listNotifications: {},
   handleDisplayDrawer: () => {},
   handleHideDrawer: () => {},
   markNotificationAsRead: () => {}
 };
+
+export function mapStateToProps(state) {
+  return {
+    listNotifications: state.notifications.get('messages')
+  };
+}
+
+export function mapDispatchToProps(dispatch) {
+  return {
+    fetchNotifications: () => dispatch(fetchNotifications()),
+    markNotificationAsRead: () => dispatch()
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Notifications)
 
 const opacityAnimationFrames = {
   '0%': {
@@ -131,4 +151,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Notifications;
+export { Notifications };
