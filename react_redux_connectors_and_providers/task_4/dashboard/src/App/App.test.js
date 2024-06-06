@@ -63,9 +63,11 @@ describe('Tests the App component when isLoggedIn is true', () => {
 
 describe('Tests suite to test the mapStateToProps function', () => {
     it('Tests that the function returns the right object when passing a specific state', () => {
-        let state = fromJS({
-            isUserLoggedIn: true
-        });
+        let state = {
+            ui: fromJS({
+                isUserLoggedIn: true
+            })
+        };
         expect(mapStateToProps(state)).toEqual({ isLoggedIn: true });
     });
 });
