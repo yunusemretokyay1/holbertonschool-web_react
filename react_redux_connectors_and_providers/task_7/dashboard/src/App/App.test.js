@@ -4,6 +4,7 @@ import { App, mapStateToProps } from "./App";
 import Footer from '../Footer/Footer';
 import Header from '../Header/Header';
 import Notifications from '../Notifications/Notifications';
+import CourseList from '../CourseList/CourseList';
 import { fromJS } from 'immutable';
 
 describe('Tests the App component', () => {
@@ -27,7 +28,7 @@ describe('Tests the App component', () => {
         expect(wrapper.find(Footer)).toHaveLength(1);
     });
     it('checks that CourseList is not displayed', () => {
-        expect(wrapper.find('CourseList')).toHaveLength(0);
+        expect(wrapper.find(CourseList)).toHaveLength(0);
     });
 });
 
@@ -38,7 +39,7 @@ describe('Tests the App component when isLoggedIn is true', () => {
     });
     it('should contain the Notifications component', () => {
         const wrapper = shallow(<App isLoggedIn={true}/>);
-        expect(wrapper.find('CourseList')).toHaveLength(1);
+        expect(wrapper.find(CourseList)).toHaveLength(1);
     });
 });
 

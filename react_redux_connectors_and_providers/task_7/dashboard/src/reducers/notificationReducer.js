@@ -5,7 +5,7 @@ import {
     FETCH_NOTIFICATIONS_SUCCESS
 } from "../actions/notificationActionTypes";
 import { notificationsNormalizer } from "../schema/notifications";
-import { Map } from 'immutable';
+import { Map, fromJS } from 'immutable';
 
 export const notificationsState = {
     notifications: {},
@@ -20,9 +20,9 @@ export function notificationReducer(state = Map(notificationsState), action) {
             Object.keys(data.entities.notifications).forEach((item) => {
                 data.entities.notifications[item].isRead = false;
             });
-            return state.mergeDeep(data.entities);
+            return state.mergeDeep(fromJS(data.entities));
         case MARK_AS_READ:
-            return state.setIn(['notifications', action.index.toString(), 'isRead'], true);
+            return state.setIn(['messages', action.index, 'isRead'], true);
         case SET_TYPE_FILTER:
             return state.set('filter', action.filter);
         case SET_LOADING_STATE:

@@ -31,19 +31,31 @@ describe('Test suite for notificationReducer', () => {
         const action = markAsAread(2);
         const initialState = {
           filter: "DEFAULT",
-          notifications: {
-            "1": { id: 1, isRead: false, type: "default", value: "New course available" },
-            "2": { id: 2, isRead: false, type: "urgent", value: "New resume available" },
-            "3": { id: 3, isRead: false, type: "urgent", value: "New data available" }
+          messages: {
+            "1": {
+              isRead: false
+            },
+            "2": {
+              isRead: false
+            },
+            "3": {
+              isRead: false
+            },
           },
           loading: false
         };
         const expectedState = {
           filter: "DEFAULT",
-          notifications: {
-            "1": { id: 1, isRead: false, type: "default", value: "New course available" },
-            "2": { id: 2, isRead: true, type: "urgent", value: "New resume available" },
-            "3": { id: 3, isRead: false, type: "urgent", value: "New data available" }
+          messages: {
+            "1": {
+              isRead: false
+            },
+            "2": {
+              isRead: true
+            },
+            "3": {
+              isRead: false
+            },
           },
           loading: false
       };

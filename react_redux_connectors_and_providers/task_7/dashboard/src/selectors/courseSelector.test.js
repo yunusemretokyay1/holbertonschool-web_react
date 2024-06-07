@@ -35,4 +35,4 @@ describe('Test suite for the course selector', () => {
 
         expect(courses.count()).toBe(3);
     });
-}); 
+});
