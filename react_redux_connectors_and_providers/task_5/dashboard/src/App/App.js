@@ -3,7 +3,6 @@ import { StyleSheet, css } from 'aphrodite';
 import logo from '../assets/holberton_logo.jpg';
 import { getFullYear, getFooterCopy } from '../utils/utils';
 import Notifications from '../Notifications/Notifications';
-import { getLatestNotification } from '../utils/utils';
 import Login from '../Login/Login';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
@@ -27,20 +26,12 @@ const listCourses = [
   { id: 3, name: 'React', credit: 40 }
 ];
 
-const listNotifications = [
-  { id: 1, type: 'default', value: 'New course available' },
-  { id: 2, type: 'urgent', value: 'New resume available' },
-  { id: 3, type: 'urgent', html: {__html: getLatestNotification()} }
-];
-
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.handleKey = this.handleKey.bind(this);
-    this.markNotificationAsRead = this.markNotificationAsRead.bind(this);
     this.state = {
-      user,
-      listNotifications
+      user
     };
   }
 
@@ -54,13 +45,6 @@ class App extends React.Component {
     }
   }
 
-  markNotificationAsRead(id) {
-    const updatedList = this.state.listNotifications.filter((notification) => {
-      return notification.id !== id;
-    });
-    this.setState({listNotifications: updatedList});
-  }
-
   componentDidMount() {
     window.addEventListener('keydown', this.handleKey);
   }
@@ -71,17 +55,14 @@ class App extends React.Component {
 
   render() {
     const footerText = `Copyright ${getFullYear()} - ${getFooterCopy(true)}`;
-    const { listNotifications } = this.state;
     const { displayDrawer, displayNotificationDrawer, hideNotificationDrawer } = this.props;
-    const { login, logout } = this.props;
+    const { login } = this.props;
     const value = {user: this.state.user};
     return (
       <AppContext.Provider value={value}>
-        <Notifications listNotifications={listNotifications}
-                       displayDrawer={displayDrawer}
+        <Notifications displayDrawer={displayDrawer}
                        handleDisplayDrawer={displayNotificationDrawer}
-                       handleHideDrawer={hideNotificationDrawer}
-                       markNotificationAsRead={this.markNotificationAsRead}/>
+                       handleHideDrawer={hideNotificationDrawer}/>
         <div className={css(styles.app)}>
           <Header text='School dashboard' src={logo} alt='Holberton logo'/>
           <div className={css(styles.body)}>
@@ -110,8 +91,8 @@ class App extends React.Component {
 
 export function mapStateToProps(state) {
   return {
-    isLoggedIn: state.get('isUserLoggedIn'),
-    displayDrawer: state.get('isNotificationDrawerVisible')
+    isLoggedIn: state.ui.get('isUserLoggedIn'),
+    displayDrawer: state.ui.get('isNotificationDrawerVisible')
   };
 }
 
@@ -131,7 +112,7 @@ const styles = StyleSheet.create({
     fontFamily: 'sans-serif',
     display: 'flex',
     flexDirection: 'column',
-    minHeight: '100%'
+    minHeight: '100%',
   },
   body: {
     marginTop: '1rem',

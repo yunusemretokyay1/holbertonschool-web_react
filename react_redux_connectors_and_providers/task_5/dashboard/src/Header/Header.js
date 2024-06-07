@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
 
 export function mapStateToProps(state) {
     return {
-        user: state.get('user')
+        user: state.ui.get('user')
     };
 }
 

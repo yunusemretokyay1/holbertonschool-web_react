@@ -25,11 +25,12 @@ class Notifications extends React.PureComponent {
     }
     const menuItemStyle = css(this.props.displayDrawer ? styles.hidden : styles.menuItem);
     let content;
-  
-    if (this.props.listNotifications.length === 0) content = <p>No new notification for now</p>;
+    let { listNotifications } = this.props;
+    let noNewNotifications = listNotifications.length === 0 || Object.keys(listNotifications).length === 0
+    if (noNewNotifications) content = <p>No new notification for now</p>;
     else {
-      content = Object.values(this.props.listNotifications).map((notif) =>
-      <NotificationItem key={notif.guid} type={notif.type} value={notif.value} html={notif.html} markAsRead={this.props.markNotificationAsRead} id={notif.guid}/>);
+      content = Object.values(listNotifications).map((notif) =>
+      <NotificationItem key={notif.guid || notif.id} type={notif.type} value={notif.value} html={notif.html} markAsRead={this.props.markNotificationAsRead} id={notif.guid || notif.id}/>);
     }
     const { handleDisplayDrawer, handleHideDrawer } = this.props;
     return (
@@ -39,11 +40,11 @@ class Notifications extends React.PureComponent {
         </div>
         {this.props.displayDrawer ? (
           <div className={css(styles.notifications, styles.small)} id="Notifications">
-            {this.props.listNotifications.length === 0 ? content : (<p>Here is the list of notifications</p>)}
+            {noNewNotifications ? content : (<p>Here is the list of notifications</p>)}
             <button aria-label='Close' onClick={handleHideDrawer} style={buttonStyle}>
               <img src={closeIcon} alt='Close icon' width={10}/>
             </button>
-            {this.props.listNotifications.length === 0 ? null : (<ul className={css(styles.noPadding)}>{content}</ul>)}
+            {noNewNotifications ? null : (<ul className={css(styles.noPadding)}>{content}</ul>)}
           </div>
         ) : null}
       </>
@@ -53,9 +54,13 @@ class Notifications extends React.PureComponent {
 
 Notifications.propTypes = {
   displayDrawer: PropTypes.bool,
-  listNotifications: PropTypes.object,
+  listNotifications: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.array
+  ]),
   handleDisplayDrawer: PropTypes.func,
   handleHideDrawer: PropTypes.func,
+  fetchNotifications: PropTypes.func,
   markNotificationAsRead: PropTypes.func
 };
 
@@ -64,7 +69,8 @@ Notifications.defaultProps = {
   listNotifications: {},
   handleDisplayDrawer: () => {},
   handleHideDrawer: () => {},
-  markNotificationAsRead: () => {}
+  markNotificationAsRead: () => {},
+  fetchNotifications: () => {}
 };
 
 export function mapStateToProps(state) {
@@ -76,7 +82,6 @@ export function mapStateToProps(state) {
 export function mapDispatchToProps(dispatch) {
   return {
     fetchNotifications: () => dispatch(fetchNotifications()),
-    markNotificationAsRead: () => dispatch()
   };
 }
 
@@ -128,7 +133,9 @@ const styles = StyleSheet.create({
       right: '1rem',
       padding: '1rem',
       width: '20rem',
-      border: 'dashed #e11d3f'
+      border: 'dashed #e11d3f',
+      background: 'white',
+      zIndex: 1
   },
   small: {
     '@media (max-width: 900px)': {
