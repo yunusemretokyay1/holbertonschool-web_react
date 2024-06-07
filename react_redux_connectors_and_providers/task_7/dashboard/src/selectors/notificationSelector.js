@@ -11,8 +11,11 @@ export function getNotifications(state) {
 }
 
 export function getUnreadNotifications(state) {
-    const notifications = state.notifications;
-    const unreadNotifications = Object.values((notifications)).filter((notif) => !notif.isRead);
-
-    return Map(unreadNotifications.map((notif) => [notif.id, notif]));
+    const notifications = state.notifications.get('messages');
+    
+    if (notifications) {
+        const unread = notifications.valueSeq().filter((notif) => notif.get('isRead') === false);
+        return unread;
+    }
+    return notifications;
 }
