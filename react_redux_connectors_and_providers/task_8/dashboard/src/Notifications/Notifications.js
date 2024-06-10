@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { StyleSheet, css } from 'aphrodite';
 import closeIcon from '../assets/close-icon.png';
 import NotificationItem from './NotificationItem';
-import { fetchNotifications, markAsAread } from '../actions/notificationActionCreators';
-import { getUnreadNotifications } from '../selectors/notificationSelector';
+import { fetchNotifications, markAsAread, setNotificationFilter } from '../actions/notificationActionCreators';
+import { getUnreadNotificationsByType } from '../selectors/notificationSelector';
 import { connect } from 'react-redux';
 
 class Notifications extends React.PureComponent {
@@ -42,8 +42,14 @@ class Notifications extends React.PureComponent {
         </div>
         {this.props.displayDrawer ? (
           <div className={css(styles.notifications, styles.small)} id="Notifications">
-            {noNewNotifications ? content : (<p>Here is the list of notifications</p>)}
-            <button aria-label='Close' onClick={handleHideDrawer} style={buttonStyle}>
+            {noNewNotifications ? content : (
+            <>
+            <p>Here is the list of notifications</p>
+            <button id='urgent-filter' onClick={() => this.props.setNotificationFilter('URGENT')}>!!</button>
+            <button id='default-filter' onClick={() => this.props.setNotificationFilter('DEFAULT')}>?</button>
+            </>
+            )}
+            <button aria-label='Close' onClick={handleHideDrawer} style={buttonStyle} id='close'>
               <img src={closeIcon} alt='Close icon' width={10}/>
             </button>
             {noNewNotifications ? null : (<ul className={css(styles.noPadding)}>{content}</ul>)}
@@ -63,7 +69,8 @@ Notifications.propTypes = {
   handleDisplayDrawer: PropTypes.func,
   handleHideDrawer: PropTypes.func,
   fetchNotifications: PropTypes.func,
-  markNotificationAsRead: PropTypes.func
+  markNotificationAsRead: PropTypes.func,
+  setNotificationFilter: PropTypes.func
 };
 
 Notifications.defaultProps = {
@@ -72,19 +79,21 @@ Notifications.defaultProps = {
   handleDisplayDrawer: () => {},
   handleHideDrawer: () => {},
   markNotificationAsRead: () => {},
-  fetchNotifications: () => {}
+  fetchNotifications: () => {},
+  setNotificationFilter: () => {}
 };
 
 export function mapStateToProps(state) {
   return {
-    listNotifications: getUnreadNotifications(state)
+    listNotifications: getUnreadNotificationsByType(state)
   };
 }
 
 export function mapDispatchToProps(dispatch) {
   return {
     fetchNotifications: () => dispatch(fetchNotifications()),
-    markNotificationAsRead: (id) => dispatch(markAsAread(id))
+    markNotificationAsRead: (id) => dispatch(markAsAread(id)),
+    setNotificationFilter: (filter) => dispatch(setNotificationFilter(filter))
   };
 }
 
